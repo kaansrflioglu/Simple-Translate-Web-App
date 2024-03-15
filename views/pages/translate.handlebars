@@ -1,0 +1,32 @@
+<title>Translate Page</title>
+
+<form id="mainForm" action="/submit" method="post">
+    <div class="container my-4">
+        <div class="row">
+            <div class="col-6">
+                <h2 class="mb-4">Text to Translate</h2>
+                <textarea class="form-container" type="text" name="inputField" id="inputField"></textarea>
+            </div>
+            <div class="col-6">
+                <h2 class="mb-4">Translate Result</h2>
+                <form>
+                    <textarea class="form-container" type="text" name="resultField" id="resultField"></textarea>
+                </form>
+            </div>
+        </div>
+        <button class="button-86 mt-4" style="font-weight: bold;" type="submit">Translate</button>
+    </div>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $('#mainForm').submit(function (event) {
+        event.preventDefault();
+
+        $.post('/submit', { inputField: $('#inputField').val() }, function (data) {
+            $('#resultField').val(data.translatedText);
+        }).fail(function () {
+            console.error("Error during translation.");
+        });
+    });
+</script>
